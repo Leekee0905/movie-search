@@ -27,7 +27,8 @@ const createHeaderSearchInput = () => {
 };
 
 const navigateHeaderTitle = () => {
-  window.location.pathname = "/";
+  const path = (window.location.pathname = "/").split("/")[1];
+  window.location.pathname = `/${path}/`;
 };
 
 const handleSearchBtn = async (event) => {
