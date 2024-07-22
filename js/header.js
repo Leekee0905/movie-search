@@ -1,3 +1,4 @@
+import makeDataToCards, { makeCards } from "./card.js";
 import getTopRatedMoviesList from "./getData.js";
 
 const createHeaderSearchInput = () => {
@@ -10,6 +11,7 @@ const createHeaderSearchInput = () => {
   searchInput.setAttribute("id", "search-input");
   searchInput.setAttribute("name", "keyword");
   searchInput.autofocus = true;
+  headerTitle.onclick = navigateHeaderTitle;
   headerTitle.innerHTML = "LGS-Movie";
   formBox.setAttribute("id", "search-form");
   submitBtn.setAttribute("type", "submit");
@@ -24,11 +26,28 @@ const createHeaderSearchInput = () => {
     handleSearchBtn(event);
 };
 
-const handleSearchBtn = (event) => {
+const navigateHeaderTitle = () => {
+  window.location.href = "/";
+};
+
+const handleSearchBtn = async (event) => {
   event.preventDefault();
   const inputText = document.querySelector("#search-input").value;
-  console.log(inputText);
-  getTopRatedMoviesList();
+  const cardList = document.querySelector("#card-list");
+  if (inputText === "") {
+    alert("검색어를 입력해주세요.");
+  } else {
+    const listHTML = await makeCards(inputText);
+    const noResult = document.createElement("div");
+    noResult.setAttribute("id", "no-result");
+    noResult.textContent = "검색결과가 없습니다.";
+    console.log(listHTML);
+    cardList.innerHTML = listHTML;
+    if (listHTML === "") {
+      cardList.appendChild(noResult);
+    }
+  }
+  document.querySelector("#search-input").value = "";
 };
 
 export default createHeaderSearchInput;
