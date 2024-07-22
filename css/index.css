@@ -22,5 +22,5 @@ body {
 
 ul,
 li {
-  list-style-type: noen;
+  list-style: none;
 }
