@@ -27,7 +27,7 @@ const createHeaderSearchInput = () => {
 };
 
 const navigateHeaderTitle = () => {
-  window.location.href = "/movie-search";
+  window.location.pathname = "/";
 };
 
 const handleSearchBtn = async (event) => {
