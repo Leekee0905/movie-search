@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+@import url("header.css");
+@import url("card-container.css");
+
 * {
   margin: 0;
   padding: 0;
@@ -13,4 +16,11 @@ html,
 body {
   height: 100%;
   position: relative;
+  background-color: #000000;
+  color: #fff;
+}
+
+ul,
+li {
+  list-style-type: noen;
 }
