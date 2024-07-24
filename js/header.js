@@ -37,11 +37,11 @@ const handleSearchBtn = async (event) => {
   if (inputText === "") {
     alert("검색어를 입력해주세요.");
   } else {
-    const listHTML = await makeCards(inputText);
+    const data = await getTopRatedMoviesList();
+    const listHTML = await makeCards(data, inputText);
     const noResult = document.createElement("div");
     noResult.setAttribute("id", "no-result");
     noResult.textContent = "검색결과가 없습니다.";
-    console.log(listHTML);
     cardList.innerHTML = listHTML;
     if (listHTML === "") {
       cardList.appendChild(noResult);
