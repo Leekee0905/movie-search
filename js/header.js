@@ -32,12 +32,13 @@ const navigateHeaderTitle = () => {
 
 const handleSearchBtn = async (event) => {
   event.preventDefault();
+  const currentPage = Number(document.querySelector(".active").innerHTML);
   const inputText = document.querySelector("#search-input").value;
   const cardList = document.querySelector("#card-list");
   if (inputText === "") {
     alert("검색어를 입력해주세요.");
   } else {
-    const data = await getTopRatedMoviesList();
+    const data = await getTopRatedMoviesList(currentPage);
     const listHTML = await makeCards(data, inputText);
     const noResult = document.createElement("div");
     noResult.setAttribute("id", "no-result");
