@@ -39,12 +39,12 @@
 
 .card-image {
   width: 300px;
-  height: 500px;
+  height: 400px;
   margin: auto;
 }
 .card-title {
   max-height: 50px;
-  font-size: 32px;
+  font-size: 24px;
 }
 
 .card-content {
@@ -68,4 +68,24 @@
 #root > #card-container > #card-list > #no-result {
   display: flex;
   justify-content: center;
+}
+
+.card-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.card-content::-webkit-scrollbar-thumb {
+  height: 1%;
+  background: #ff0000; /* 스크롤바의 색상 */
+  border-radius: 10px;
+}
+
+.card-title::-webkit-scrollbar {
+  width: 10px;
+}
+
+.card-title::-webkit-scrollbar-thumb {
+  height: 1%;
+  background: #ff0000; /* 스크롤바의 색상 */
+  border-radius: 10px;
 }
