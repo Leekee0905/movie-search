@@ -1,6 +1,6 @@
 const getTopRatedMoviesList = async (params) => {
   const page = 1;
-  const url = `https://api.themoviedb.org/3/movie/top_rated?language=ko-KR&page=${page}`;
+  const url = `https://api.themoviedb.org/3/movie/top_rated?language=ko-KR&page=${params}`;
   const options = {
     method: "GET",
     headers: {
