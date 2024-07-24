@@ -1,0 +1,23 @@
+#pagination-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  padding: 0.1rem 1rem;
+  font-size: 24px;
+}
+
+.page-number {
+  cursor: pointer;
+}
+
+#next,
+#prev {
+  cursor: pointer;
+}
+
+.active {
+  color: #ff0000;
+  cursor: pointer;
+}
