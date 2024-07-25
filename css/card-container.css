@@ -1,3 +1,10 @@
+#card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 36px;
+}
 #card-list {
   width: 100%;
   display: grid;
@@ -22,6 +29,7 @@
   gap: 10px;
   border: 1px #fff solid;
   border-radius: 5px;
+  width: 400px;
   height: 700px;
   cursor: pointer;
   padding: 20px;

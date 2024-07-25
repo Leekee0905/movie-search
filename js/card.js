@@ -39,7 +39,7 @@ const makeDataToCards = async () => {
       updatePagination(data, start_page);
       addPaginationEventListeners(data);
       setActivePage(start_page + 9);
-      const newData = await getTopRatedMoviesList(start_page);
+      const newData = await getTopRatedMoviesList(start_page + 9);
       const html = makeCards(newData);
       cardList.innerHTML = html;
     }
@@ -115,6 +115,9 @@ export const makeCards = (data, keyword) => {
 
   const html = cardData
     .map((element) => {
+      if (!element.overview) {
+        element.overview = "소개글이 없습니다.";
+      }
       return `
           <li class="card-list-contents">
             <div class="card-box" key=${element.id}>
