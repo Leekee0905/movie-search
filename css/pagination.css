@@ -7,6 +7,9 @@
   padding: 0.1rem 1rem;
   font-size: 24px;
 }
+#pagination-container > li {
+  width: 50px;
+}
 
 .page-number {
   cursor: pointer;
