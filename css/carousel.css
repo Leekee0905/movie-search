@@ -10,6 +10,7 @@
 #root > h2 {
   font-size: 36px;
   margin-bottom: 36px;
+  color: #ff0000;
 }
 .carousel-inner {
   display: flex;
@@ -21,10 +22,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.carousel-item > img {
-  cursor: pointer;
 }
 
 .carousel-buttons {
@@ -42,4 +39,8 @@
   color: white;
   padding: 10px;
   cursor: pointer;
+}
+
+.carousel-button:hover {
+  color: #ff0000;
 }
