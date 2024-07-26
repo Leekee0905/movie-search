@@ -1,23 +1,29 @@
-import makeDataToCards, { makeCards } from "./card.js";
-import getTopRatedMoviesList from "./getData.js";
+import { makeCards } from "./card.js";
+import { getTopRatedMoviesList } from "./getData.js";
 
 const createHeaderSearchInput = () => {
-  const createHeader = document.createElement("div");
+  const createdHeader = document.createElement("div");
   const headerTitle = document.createElement("h1");
   const searchInput = document.createElement("input");
   const submitBtn = document.createElement("button");
   const formBox = document.createElement("form");
-  createHeader.setAttribute("id", "header");
-  searchInput.setAttribute("id", "search-input");
+
+  createdHeader.id = "header";
+
+  searchInput.id = "search-input";
   searchInput.setAttribute("name", "keyword");
   searchInput.autofocus = true;
+
   headerTitle.onclick = navigateHeaderTitle;
   headerTitle.innerHTML = "LGS-Movie";
-  formBox.setAttribute("id", "search-form");
+
+  formBox.id = "search-form";
+
   submitBtn.setAttribute("type", "submit");
-  submitBtn.setAttribute("id", "search-btn");
+  submitBtn.id = "search-btn";
   submitBtn.innerHTML = "검색";
-  document.querySelector("#root").appendChild(createHeader);
+
+  document.querySelector("#root").appendChild(createdHeader);
   document.querySelector("#header").appendChild(headerTitle);
   document.querySelector("#header").appendChild(formBox);
   document.querySelector("#search-form").appendChild(searchInput);

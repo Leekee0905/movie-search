@@ -1,79 +1,87 @@
-import getTopRatedMoviesList from "./getData.js";
+import { getTopRatedMoviesList } from "./getData.js";
 import pagination from "./pagination.js";
 
 const makeDataToCards = async () => {
   const root = document.querySelector("#root");
   const cardContainer = document.createElement("div");
   const cardList = document.createElement("ul");
-  cardList.setAttribute("id", "card-list");
-  cardContainer.setAttribute("id", "card-container");
+  cardList.id = "card-list";
+  cardContainer.id = "card-container";
   cardContainer.appendChild(cardList);
   root.appendChild(cardContainer);
   let start_page = 1;
 
-  const updatePagination = (data, start_page) => {
+  const data = await getTopRatedMoviesList(start_page);
+  const totalPage = data.total_pages;
+  const html = makeCards(data);
+  cardList.innerHTML = html;
+
+  cardContainer.addEventListener("click", (event) => {
+    const cardBox = event.target.closest(".card-box");
+    if (cardBox) {
+      const id = cardBox.getAttribute("key");
+      handleCardAlert(id);
+    }
+  });
+
+  const drawCards = async (pageNumber) => {
+    const data = await getTopRatedMoviesList(pageNumber);
+    const html = makeCards(data);
+    cardList.innerHTML = html;
+  };
+
+  const updatePagination = (totalpage, start_page) => {
     let box = document.querySelector("#pagination-container");
     if (!box) {
       box = document.createElement("ul");
-      box.setAttribute("id", "pagination-container");
+      box.id = "pagination-container";
       cardContainer.appendChild(box);
     }
-    box.innerHTML = pagination(data.total_pages, start_page);
+    box.innerHTML = pagination(totalpage, start_page);
   };
 
-  const handleNextClick = async (data) => {
-    if (start_page + 10 <= data.total_pages) {
+  const handleNextClick = (totalpage) => {
+    if (start_page + 10 <= totalpage) {
       start_page += 10;
-      updatePagination(data, start_page);
-      addPaginationEventListeners(data);
+      updatePagination(totalpage, start_page);
+      addPaginationEventListeners(totalpage);
       setActivePage(start_page);
-      const newData = await getTopRatedMoviesList(start_page);
-      const html = makeCards(newData);
-      cardList.innerHTML = html;
+      drawCards(start_page);
     }
   };
 
-  const handlePrevClick = async (data) => {
+  const handlePrevClick = (totalpage) => {
     if (start_page > 1) {
       start_page -= 10;
-      updatePagination(data, start_page);
-      addPaginationEventListeners(data);
+      updatePagination(totalpage, start_page);
+      addPaginationEventListeners(totalpage);
       setActivePage(start_page + 9);
-      const newData = await getTopRatedMoviesList(start_page + 9);
-      const html = makeCards(newData);
-      cardList.innerHTML = html;
+      drawCards(start_page + 9);
     }
   };
-  const handleActivePageClick = async (event) => {
+
+  const handlePageNumberClick = async (event) => {
     if (event.target.classList.contains("page-number")) {
       document.querySelector(".page-number.active")?.classList.remove("active");
       event.target.classList.add("active");
-      const newData = await getTopRatedMoviesList(
-        Number(event.target.innerHTML)
-      );
-      const html = makeCards(newData);
-      cardList.innerHTML = html;
+      drawCards(Number(event.target.innerHTML));
     }
   };
 
-  const addPaginationEventListeners = (data) => {
+  const addPaginationEventListeners = (totalpage) => {
     const nextBtn = document.querySelector("#next");
     const prevBtn = document.querySelector("#prev");
     const pageNumbers = document.querySelectorAll(".page-number");
-    if (nextBtn) {
-      nextBtn.removeEventListener("click", handleNextClick);
-      nextBtn.addEventListener("click", () => handleNextClick(data));
-    }
 
-    if (prevBtn) {
-      prevBtn.removeEventListener("click", handlePrevClick);
-      prevBtn.addEventListener("click", () => handlePrevClick(data));
-    }
+    nextBtn.addEventListener("click", () => handleNextClick(totalpage));
+
+    prevBtn.addEventListener("click", () => handlePrevClick(totalpage));
+
     pageNumbers.forEach((pageNumber) => {
-      pageNumber.removeEventListener("click", handleActivePageClick);
-      pageNumber.addEventListener("click", handleActivePageClick);
+      pageNumber.addEventListener("click", handlePageNumberClick);
     });
   };
+
   const setActivePage = (page) => {
     const pageNumbers = document.querySelectorAll(".page-number");
     pageNumbers.forEach((pageNumber) => {
@@ -85,23 +93,9 @@ const makeDataToCards = async () => {
     });
   };
 
-  try {
-    const data = await getTopRatedMoviesList(start_page);
-    const html = makeCards(data);
-    cardList.innerHTML = html;
-    cardContainer.addEventListener("click", (event) => {
-      const cardBox = event.target.closest(".card-box");
-      if (cardBox) {
-        const id = cardBox.getAttribute("key");
-        handleCardAlert(id);
-      }
-    });
-    updatePagination(data, start_page);
-    addPaginationEventListeners(data);
-    setActivePage(start_page);
-  } catch (error) {
-    console.log(error);
-  }
+  updatePagination(totalPage, start_page);
+  addPaginationEventListeners(totalPage);
+  setActivePage(start_page);
 };
 
 const handleCardAlert = (id) => {

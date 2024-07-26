@@ -1,6 +1,6 @@
 import makeDataToCards from "./card.js";
 import createHeaderSearchInput from "./header.js";
-import carousel from "./carousel.js";
+import renderCarousel from "./carousel.js";
 createHeaderSearchInput();
-carousel();
+renderCarousel();
 makeDataToCards();

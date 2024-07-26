@@ -1,6 +1,6 @@
 import { getPlayingMovies } from "./getData.js";
 
-const carousel = async () => {
+const renderCarousel = async () => {
   const root = document.querySelector("#root");
   const data = await getPlayingMovies();
   const movies = data.results;
@@ -11,20 +11,20 @@ const carousel = async () => {
   carouselTitle.innerHTML = "현재 상영중인 영화";
 
   const carouselContainer = document.createElement("div");
-  carouselContainer.setAttribute("class", "carousel");
+  carouselContainer.classList.add("carousel");
 
   const carouselInner = document.createElement("div");
-  carouselInner.setAttribute("class", "carousel-inner");
+  carouselInner.classList.add("carousel-inner");
 
   const buttonContainer = document.createElement("div");
-  buttonContainer.setAttribute("class", "carousel-buttons");
+  buttonContainer.classList.add("carousel-buttons");
 
   const prevBtn = document.createElement("button");
-  prevBtn.setAttribute("class", "carousel-button prev");
+  prevBtn.classList.add("carousel-button", "prev");
   prevBtn.innerHTML = "<";
 
   const nextBtn = document.createElement("button");
-  nextBtn.setAttribute("class", "carousel-button next");
+  nextBtn.classList.add("carousel-button", "next");
   nextBtn.innerHTML = ">";
 
   buttonContainer.appendChild(prevBtn);
@@ -82,4 +82,4 @@ const carousel = async () => {
   updateCarousel();
 };
 
-export default carousel;
+export default renderCarousel;

@@ -1,4 +1,4 @@
-const getTopRatedMoviesList = async (params) => {
+export const getTopRatedMoviesList = async (params) => {
   const url = `https://api.themoviedb.org/3/movie/top_rated?language=ko-KR&page=${params}`;
   const options = {
     method: "GET",
@@ -26,5 +26,3 @@ export const getPlayingMovies = async () => {
   const response = await fetch(url, options).then((res) => res.json());
   return response;
 };
-
-export default getTopRatedMoviesList;
