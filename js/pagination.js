@@ -1,3 +1,9 @@
+import {
+  handlePrevClick,
+  handleNextClick,
+  handlePageNumberClick,
+} from "./card.js";
+
 const pagination = (total_pages, start_Page) => {
   const pages_per_Group = 10;
   let temp_html = "";
@@ -13,4 +19,27 @@ const pagination = (total_pages, start_Page) => {
   return temp_html;
 };
 
-export default pagination;
+export const updatePagination = (total_page, start_page) => {
+  let box = document.querySelector("#pagination-container");
+  const cardContainer = document.querySelector("#card-container");
+  if (!box) {
+    box = document.createElement("ul");
+    box.id = "pagination-container";
+    cardContainer.appendChild(box);
+  }
+  box.innerHTML = pagination(total_page, start_page);
+};
+
+export const addPaginationEventListeners = (totalpage) => {
+  const nextBtn = document.querySelector("#next");
+  const prevBtn = document.querySelector("#prev");
+  const pageNumbers = document.querySelectorAll(".page-number");
+
+  nextBtn.addEventListener("click", () => handleNextClick(totalpage));
+
+  prevBtn.addEventListener("click", () => handlePrevClick(totalpage));
+
+  pageNumbers.forEach((pageNumber) => {
+    pageNumber.addEventListener("click", handlePageNumberClick);
+  });
+};
