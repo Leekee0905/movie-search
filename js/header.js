@@ -1,5 +1,6 @@
 import { makeCards } from "./card.js";
-import { getTopRatedMoviesList } from "./getData.js";
+import { getSearchData, getTopRatedMoviesList } from "./getData.js";
+import { addPaginationEventListeners, updatePagination } from "./pagination.js";
 
 const createHeaderSearchInput = () => {
   const createdHeader = document.createElement("div");
@@ -44,8 +45,10 @@ const handleSearchBtn = async (event) => {
   if (inputText === "") {
     alert("검색어를 입력해주세요.");
   } else {
-    const data = await getTopRatedMoviesList(currentPage);
+    const data = await getSearchData(inputText, currentPage);
     const listHTML = await makeCards(data, inputText);
+    updatePagination(data.total_pages, 1);
+    addPaginationEventListeners(data.total_pages);
     const noResult = document.createElement("div");
     noResult.setAttribute("id", "no-result");
     noResult.textContent = "검색결과가 없습니다.";
@@ -54,7 +57,6 @@ const handleSearchBtn = async (event) => {
       cardList.appendChild(noResult);
     }
   }
-  document.querySelector("#search-input").value = "";
 };
 
 export default createHeaderSearchInput;
